@@ -1,0 +1,96 @@
+Fortführung von Test4
+
+Zu jeder LED soll jetzt ein Button zugeteilt werden
+
+Erste Schritte:
+- 4 Buttons aus Array setup
+- neue eigene Methoden erstellt (blinken, wait)
+- aktuell(2.11.) ein Button betätigen, nachdem die LEDs geblinkt haben
+
+-> jede Random LED wird in ein Array gespeichert
+   dieses Array wird nach jedem Button push (button 1) komplett durchgegangen
+   und dabei wird die bestehende Reihenfolge der LEDs + 1 neue Random LED
+   angesteuert
+
+02.11.: ein Button nach jedem durchlauf der LEDs betätigen, um den nächsten
+	   Durchlauf zu starten.
+	   
+06.11.: Funktionen wrongSeq und startSeq hinzugefügt
+		- wrongSeq zeigt an, wenn eine falsche Sequenz vom User zurückgegeben wurde
+		- startSeq zeigt an, wenn das Spiel anfängt
+		
+06.11.: Erste Abfrage für Buttons hinzugefügt
+		-> akutell noch keine Abbruchbedingung
+		-> Programm läuft nur weiter, wenn die Knöpfe in der richtigen Reihenfolge gedrückt werden
+		-> Timings müssen noch angepasst werden
+		
+15.11.: - Reset Funktion implementiert
+		- Verkabelung vereinfacht
+Code 2.11.:
+//save random numbers in array and wait for button
+//button has to be same as LED
+
+//start variables
+const int ledPin[] = {12, 10, 8, 6}; //LED pins
+const int butPin[] = {11, 9, 7, 5}; //Button pins
+const int nrLED = 4; //number of LEDs
+const int nrBut = 4; //number of buttons
+int saveNr[] = {}; //empty array to save random order of LED
+int count = 1; //startposition for counter//array pos 0 funktioniert nicht?
+
+void setup(){
+  //Setup for LEDs
+  for(int x=0; x<nrLED; x++)
+  {
+    pinMode(ledPin[x], OUTPUT);
+  }
+
+  //Setup for buttons
+  for(int x=0; x<nrBut; x++)
+  {
+    pinMode(butPin[x], INPUT_PULLUP); //INPUT_PULLUP turns on the internal pullup resistor ~50k ohm 
+    digitalWrite(butPin[x], HIGH);
+  }
+  
+  // if analog input pin 0 is unconnected, random analog
+  // noise will cause the call to randomSeed() to generate
+  // different seed numbers each time the sketch runs.
+  // randomSeed() will then shuffle the random function.
+  randomSeed(analogRead(0));
+
+  //delay(1000); //wait 3 secs before starting
+}
+
+void loop() {
+  byte randPin = random(0, nrLED); //random number for LED pin: 0 to <nrLED (0,1,2,3)
+
+  saveNr[count] = randPin; //save randPin to array 'saveNr' on position 'count'
+  count++;
+  
+  for(int i = 0; i < count; i++){
+    blinkOnce(saveNr[i]); //blink once for each LED in saved array
+  }
+
+  butWait(0); //wait until button 1 is pressed
+
+  delay(1000);
+}
+
+//blink LED once
+//pinNr = random pin each time
+void blinkOnce(int pinNr)
+{ 
+  digitalWrite(ledPin[pinNr], HIGH);
+  delay(1000);
+  digitalWrite(ledPin[pinNr], LOW);
+  delay(1000);
+}
+
+//read buttons
+//currently waiting for button 1 to be pushed
+void butWait(int pinNr)
+{
+  while (digitalRead(butPin[pinNr]) == HIGH){
+    //do nothing
+  }
+}
