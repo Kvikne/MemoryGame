@@ -1,0 +1,28 @@
+Fortführung von Test4
+
+Zu jeder LED soll jetzt ein Button zugeteilt werden
+
+Erste Schritte:
+- 4 Buttons aus Array setup
+- neue eigene Methoden erstellt (blinken, wait)
+- aktuell(2.11.) ein Button betätigen, nachdem die LEDs geblinkt haben
+
+-> jede Random LED wird in ein Array gespeichert
+   dieses Array wird nach jedem Button push (button 1) komplett durchgegangen
+   und dabei wird die bestehende Reihenfolge der LEDs + 1 neue Random LED
+   angesteuert
+
+02.11.: ein Button nach jedem durchlauf der LEDs betätigen, um den nächsten
+	   Durchlauf zu starten.
+	   
+06.11.: Funktionen wrongSeq und startSeq hinzugefügt
+		- wrongSeq zeigt an, wenn eine falsche Sequenz vom User zurückgegeben wurde
+		- startSeq zeigt an, wenn das Spiel anfängt
+		
+06.11.: Erste Abfrage für Buttons hinzugefügt
+		-> akutell noch keine Abbruchbedingung
+		-> Programm läuft nur weiter, wenn die Knöpfe in der richtigen Reihenfolge gedrückt werden
+		-> Timings müssen noch angepasst werden
+		
+15.11.: - Reset Funktion implementiert
+		- Verkabelung vereinfacht
