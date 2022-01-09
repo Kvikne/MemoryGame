@@ -1,0 +1,3 @@
+Random LEDs im Array speichern und diesen im Serial Monitor abfangen und überprüfem
+
+4LEDs
