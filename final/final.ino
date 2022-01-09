@@ -39,11 +39,6 @@ void setup() {
   startSeq(nrLED); //Execute start sequence
 }
 
-
-//Reset function
-//resets Arduino to restart programm
-void(* resetFunc) (void) = 0; //declare reset function at address 0
-
 //-------------------------------------------------------------------------------------------------------------
 //Main Code
 
@@ -66,6 +61,11 @@ void loop() {
 
 //-------------------------------------------------------------------------------------------------------------
 //Functions
+
+
+//Reset function
+//resets Arduino to restart programm
+void(* resetFunc) (void) = 0; //declare reset function at address 0
 
 //blink LED once
 //pinNr = random pin each time
